@@ -4,6 +4,25 @@
 #include <algorithm> // sort, min_element, max_element
 
 
+
+
+class Personne {
+public:
+    Personne(const std::string& nom, int age)
+        : nom_(nom), age_(age) {}
+
+    void afficher() const {
+        std::cout << nom_ << " a " << age_ << " ans." << std::endl;
+    }
+
+    void anniversaire() {
+        ++age_;
+    }
+
+private:
+    std::string nom_;
+    int age_;
+};
 int main(int argc, char const *argv[])
 {
 	std::vector<int> nombres  = {12, 34, 51, 2, 9, 1, 52, 37, 27};
@@ -88,5 +107,35 @@ int main(int argc, char const *argv[])
 
 // Utilisation :
 		smart_stable_sort(commandes.begin(), commandes.end(), multiFieldComparator);  
+
+
+    
+// ================ Pour le classe personne ========================
+
+
+    std::vector<Personne*> personnes;
+
+    // Allocation dynamique et insertion dans le vecteur
+    personnes.push_back(new Personne("Alice", 30));
+    personnes.push_back(new Personne("Bob", 25));
+    personnes.push_back(new Personne("Charlie", 40));
+
+    // Affichage des informations
+    for (const auto& p : personnes) {
+        p->afficher();
+    }
+
+
+ // Libération de la mémoire
+    for (auto& p : personnes) {
+        delete p;
+        p = nullptr; // Bonne pratique : éviter les pointeurs pendants
+    }
+    personnes.clear(); // Nettoyage du vecteur
+
+
+
+
+
 	return 0;
 }
